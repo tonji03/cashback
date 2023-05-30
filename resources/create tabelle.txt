@@ -1,0 +1,32 @@
+CREATE DATABASE `corso_u4dev` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+CREATE TABLE `cashbackdd` (
+  `id_cashback` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int NOT NULL,
+  `totale_cashback` double NOT NULL DEFAULT '0',
+  `data_accredito` date NOT NULL,
+  PRIMARY KEY (`id_cashback`),
+  KEY `id_cliente2_idx` (`id_cliente`),
+  CONSTRAINT `id_cliente2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `cliente` (
+  `id_cliente` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `cognome` varchar(45) NOT NULL,
+  `data_registrazione` date NOT NULL,
+  `percentuale_cashback` int NOT NULL DEFAULT '0',
+  `cap` int NOT NULL DEFAULT '1000',
+  PRIMARY KEY (`id_cliente`),
+  UNIQUE KEY `id_cliente_UNIQUE` (`id_cliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `cashbackdd` (
+  `id_cashback` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int NOT NULL,
+  `totale_cashback` double NOT NULL DEFAULT '0',
+  `data_accredito` date NOT NULL,
+  PRIMARY KEY (`id_cashback`),
+  KEY `id_cliente2_idx` (`id_cliente`),
+  CONSTRAINT `id_cliente2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

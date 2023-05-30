@@ -42,8 +42,10 @@ public class CalcoloCashbackServiceImpl implements CalcoloCashback {
                     double prezzo = acquisto.getPrezzo();
                     premio = prezzo * ((double) c.getPercentuale_cashback() /100);
 
-                    if(premio <= c.getCap() && totPremio<=c.getCap()){
+                    if(premio <= c.getCap() && totPremio<c.getCap()){
                         totPremio+=premio;
+                    }else if(premio > c.getCap()){
+                        totPremio=1000;
                     }
                     try{
                         acquisto = acquistoList.get(++counter);
@@ -57,9 +59,9 @@ public class CalcoloCashbackServiceImpl implements CalcoloCashback {
                 }
 
             }
-
-            insertIntoCashback(id_cliente, totPremio);
-
+            if(id_cliente!=0 ){
+                insertIntoCashback(id_cliente, totPremio);
+            }
         }
     }
     public void insertIntoCashback(int id_cliente, double totPremio){

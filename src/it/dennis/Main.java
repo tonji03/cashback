@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         CalcoloCashbackServiceImpl calcoloCashbackService = new CalcoloCashbackServiceImpl();
         calcoloCashbackService.impostaPercentualeCashback();
-        System.out.println(calcoloCashbackService.getAllAcquisti());
         calcoloCashbackService.calcolaCashback();
 
     }

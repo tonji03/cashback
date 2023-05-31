@@ -7,18 +7,21 @@ public class Cashback {
     private int id_cliente;
     private double totale_cashback;
     private Date data_accredito;
+    private Date data_acquisto;
 
-    public Cashback(int id_cashback, int id_cliente, double totale_cashback, Date data_accredito) {
+    public Cashback(int id_cashback, int id_cliente, double totale_cashback, Date data_accredito, Date data_acquisto) {
         this.id_cashback = id_cashback;
         this.id_cliente = id_cliente;
         this.totale_cashback = totale_cashback;
         this.data_accredito = data_accredito;
+        this.data_acquisto = data_acquisto;
     }
 
-    public Cashback(int id_cliente, double totale_cashback, Date data_accredito) {
+    public Cashback(int id_cliente, double totale_cashback, Date data_accredito, Date data_acquisto) {
         this.id_cliente = id_cliente;
         this.totale_cashback = totale_cashback;
         this.data_accredito = data_accredito;
+        this.data_acquisto = data_acquisto;
     }
 
     public int getId_cashback() {

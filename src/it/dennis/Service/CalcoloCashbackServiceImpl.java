@@ -43,10 +43,10 @@ public class CalcoloCashbackServiceImpl implements CalcoloCashback {
                     double prezzo = acquisto.getPrezzo(); //prezzo d'acquisto
                     premio = prezzo * ((double) c.getPercentuale_cashback() /100); //calcolo cashback
                     //se il premio è minore uguale del cap e il premio totale è minore del cap
-                    if(premio <= c.getCap() && totPremio<c.getCap()){
+                    if(premio <= c.getCap() ){
                         totPremio+=premio;//aggiunge al premio totale il cashback calcolato
                     }else if(premio > c.getCap()){//se il premio supera il cap lo pone uguale al cap
-                        totPremio=c.getCap();
+                        totPremio+=c.getCap();
                     }
                     try{
                         acquisto = acquistoList.get(++counter);
@@ -61,12 +61,12 @@ public class CalcoloCashbackServiceImpl implements CalcoloCashback {
 
             }//se l'id cliente è diverso da nullo, ma dato che è un intero il valore nullo equivale a 0, inserisce il premio nella tabella cashback col relativo id_cliente associato
             if(id_cliente!=0 ){
-                insertIntoCashback(id_cliente, totPremio);
+                insertIntoCashback(id_cliente, totPremio, data_acquisto);
             }
         }
     }
-    public void insertIntoCashback(int id_cliente, double totPremio){
-        cashbackddDAO.insert(id_cliente, totPremio, Date.valueOf(LocalDate.now()));
+    public void insertIntoCashback(int id_cliente, double totPremio, Date data_acquisto){
+        cashbackddDAO.insert(id_cliente, totPremio, Date.valueOf(LocalDate.now()), data_acquisto);
     }
     @Override
     public void impostaPercentualeCashback(){

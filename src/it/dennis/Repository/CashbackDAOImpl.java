@@ -18,12 +18,13 @@ public class CashbackDAOImpl implements CashbackddDAO{
     }
 
     @Override
-    public void insert(int id_cliente, double totale_cashback, Date data_accredito) {
-        String query = "INSERT INTO cashbackdd (id_cliente,totale_cashback,data_accredito) values (?,?,?)";
+    public void insert(int id_cliente, double totale_cashback, Date data_accredito, Date data_acquisto) {
+        String query = "INSERT INTO cashbackdd (id_cliente,totale_cashback,data_accredito, data_acquisto) values (?,?,?,?)";
         try(PreparedStatement st = connection.prepareStatement(query)){
             st.setInt(1,id_cliente);
             st.setDouble(2,totale_cashback);
             st.setDate(3,data_accredito);
+            st.setDate(4,data_acquisto);
             int rs = st.executeUpdate();
 
             st.close();
@@ -40,7 +41,7 @@ public class CashbackDAOImpl implements CashbackddDAO{
             st.setInt(1,id);
             ResultSet rs = st.executeQuery();
             if(rs.next()){
-                cashback = new Cashback(rs.getInt("id_cashback"),rs.getInt("id_cliente"), rs.getDouble("totale_cashback"),rs.getDate("data_credito"));
+                cashback = new Cashback(rs.getInt("id_cashback"),rs.getInt("id_cliente"), rs.getDouble("totale_cashback"),rs.getDate("data_credito"), rs.getDate("data_acquisto"));
             }
             st.close();
             rs.close();
@@ -57,7 +58,7 @@ public class CashbackDAOImpl implements CashbackddDAO{
         try(PreparedStatement st = connection.prepareStatement(query)){
             ResultSet rs = st.executeQuery();
             while (rs.next()){
-                Cashback cashback = new Cashback(rs.getInt("id_cashback"),rs.getInt("id_cliente"), rs.getDouble("totale_cashback"),rs.getDate("data_credito"));
+                Cashback cashback = new Cashback(rs.getInt("id_cashback"),rs.getInt("id_cliente"), rs.getDouble("totale_cashback"),rs.getDate("data_credito"), rs.getDate("data_acquisto"));
                 cashbacks.add(cashback);
             }
             st.close();

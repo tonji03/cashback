@@ -61,7 +61,8 @@ public class ClienteDAOImpl implements ClienteDAO{
                 Date data_registrazione = resultSet.getDate("data_registrazione");
                 int percentuale_cashback = resultSet.getInt("percentuale_cashback");
                 int cap = resultSet.getInt("cap");
-                cliente = new Cliente(id, nome, cognome, data_registrazione, percentuale_cashback, cap);
+                int capMensile = resultSet.getInt("cap_mensile");
+                cliente = new Cliente(id, nome, cognome, data_registrazione, percentuale_cashback, cap, capMensile);
             }
             statement.close();
             resultSet.close();
@@ -79,7 +80,7 @@ public class ClienteDAOImpl implements ClienteDAO{
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                Cliente cliente = new Cliente(rs.getInt("id_cliente"),  rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_registrazione"), rs.getInt("percentuale_cashback"), rs.getInt("cap"));
+                Cliente cliente = new Cliente(rs.getInt("id_cliente"),  rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_registrazione"), rs.getInt("percentuale_cashback"), rs.getInt("cap"),rs.getInt("cap_mensile"));
                 clienti.add(cliente);
             }
             rs.close();

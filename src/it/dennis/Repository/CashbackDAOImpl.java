@@ -18,13 +18,12 @@ public class CashbackDAOImpl implements CashbackddDAO{
     }
 
     @Override
-    public void insert(int id_cliente, double totale_cashback, Date data_accredito, Date data_acquisto) {
-        String query = "INSERT INTO cashbackdd (id_cliente,totale_cashback,data_accredito, data_acquisto) values (?,?,?,?)";
+    public void insert(int id_cliente, double totale_cashback, Date data_accredito) {
+        String query = "INSERT INTO cashbackdd (id_cliente,totale_cashback,data_accredito) values (?,?,?)";
         try(PreparedStatement st = connection.prepareStatement(query)){
             st.setInt(1,id_cliente);
             st.setDouble(2,totale_cashback);
             st.setDate(3,data_accredito);
-            st.setDate(4,data_acquisto);
             int rs = st.executeUpdate();
 
             st.close();

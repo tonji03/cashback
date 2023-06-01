@@ -30,16 +30,14 @@ public class CalcoloCashbackServiceImpl implements CalcoloCashback {
         while (!acquistoList.isEmpty() && !listaAcquistoFinita){
 
             Acquisto acquisto = acquistoList.get(counter);
-            int id_acquisto = acquisto.getId_acquisto();
             int id_cliente = acquisto.getId_cliente();
-            Date data_acquisto = acquisto.getData_acquisto();
             double totPremio = 0;
             double premio=0;
             //finchè la lista acquisti non è finiita e l'id_cliente è uguale all'acquisto selezionato e la data è uguale alla data dell'acquisto selezionato
-            while(!listaAcquistoFinita && (id_cliente == acquisto.getId_cliente() && data_acquisto.equals(acquisto.getData_acquisto()))){
+            while(!listaAcquistoFinita && id_cliente == acquisto.getId_cliente() && acquisto.getData_acquisto().getMonth()+1 == LocalDate.now().getMonthValue()){
                 //prendo il cliente in base all'id_cliente dell'acquisto
                 Cliente c = clienteDAO.getClienteById(id_cliente);
-                if(c != null){ //se il cliente è vuoto passa all'acquisto successivo perchè non deve calcolare il cashback di un utente non registrato
+                if(c != null ){ //se il cliente è vuoto passa all'acquisto successivo perchè non deve calcolare il cashback di un utente non registrato
                     double prezzo = acquisto.getPrezzo(); //prezzo d'acquisto
                     premio = prezzo * ((double) c.getPercentuale_cashback() /100); //calcolo cashback
                     //se il premio è minore uguale del cap e il premio totale è minore del cap
@@ -47,6 +45,10 @@ public class CalcoloCashbackServiceImpl implements CalcoloCashback {
                         totPremio+=premio;//aggiunge al premio totale il cashback calcolato
                     }else if(premio > c.getCap()){//se il premio supera il cap lo pone uguale al cap
                         totPremio+=c.getCap();
+
+                    }
+                    if(totPremio>c.getCapMensile()){
+                        totPremio=c.getCapMensile();
                     }
                     try{
                         acquisto = acquistoList.get(++counter);
@@ -60,13 +62,22 @@ public class CalcoloCashbackServiceImpl implements CalcoloCashback {
                 }
 
             }//se l'id cliente è diverso da nullo, ma dato che è un intero il valore nullo equivale a 0, inserisce il premio nella tabella cashback col relativo id_cliente associato
-            if(id_cliente!=0 ){
-                insertIntoCashback(id_cliente, totPremio, data_acquisto);
+            if(id_cliente!=0 && totPremio!=0){
+                insertIntoCashback(id_cliente, totPremio);
+            }//se il mese è diverso prova a ottenere il prossimo acquisto in lista
+            if(acquisto.getData_acquisto().getMonth()+1 != LocalDate.now().getMonthValue()){
+                try{
+                    acquisto = acquistoList.get(++counter);
+                    //passa all'acquisto successivo provando ad aumentare il counter,
+                    // se il counter va oltre pone la variabile a true per indicare che la lista è finita
+                }catch (IndexOutOfBoundsException e){
+                    listaAcquistoFinita = true;
+                }
             }
         }
     }
-    public void insertIntoCashback(int id_cliente, double totPremio, Date data_acquisto){
-        cashbackddDAO.insert(id_cliente, totPremio, Date.valueOf(LocalDate.now()), data_acquisto);
+    public void insertIntoCashback(int id_cliente, double totPremio){
+        cashbackddDAO.insert(id_cliente, totPremio, Date.valueOf(LocalDate.now()));
     }
     @Override
     public void impostaPercentualeCashback(){

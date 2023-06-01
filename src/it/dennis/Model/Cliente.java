@@ -9,22 +9,31 @@ public class Cliente {
     private Date data_registrazione;
     private int percentuale_cashback;
     private int cap;
+    private int capMensile;
 
     public Cliente(int id, String nome, String cognome, Date data_registrazione) {
         this.id_cliente = id;
         this.nome = nome;
         this.cognome = cognome;
         this.data_registrazione = data_registrazione;
-        this.cap = 1000;
     }
 
-    public Cliente(int id_cliente, String nome, String cognome, Date data_registrazione, int percentuale_cashback, int cap) {
+    public Cliente(int id_cliente, String nome, String cognome, Date data_registrazione, int percentuale_cashback, int cap,int capMensile) {
         this.id_cliente = id_cliente;
         this.nome = nome;
         this.cognome = cognome;
         this.data_registrazione = data_registrazione;
         this.percentuale_cashback = percentuale_cashback;
         this.cap = cap;
+        setCapMensile(capMensile);
+    }
+
+    public int getCapMensile() {
+        return capMensile;
+    }
+
+    public void setCapMensile(int capMensile) {
+        this.capMensile = capMensile;
     }
 
     public int getPercentuale_cashback() {

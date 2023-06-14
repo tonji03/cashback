@@ -1,0 +1,24 @@
+insert into cliente (nome,cognome,data_registrazione,percentuale_cashback,cap) values ('Nome','Cognome',"2022-05-25",12,1000);
+select * from cliente c right join societa s on c.codice_societa = s.codice_societa;
+select * from cliente;
+select * from societa order by codice_societa;
+insert into societa values("0001","Amazon");
+select * from cliente;
+update cliente set codice_societa = null where id_cliente = 1;
+update cliente set codice_id_presentatore=6 where id_cliente = 3;
+insert into movacqudd (id_cliente,prezzo,data_acquisto) values (2,1001,"2023-04-15");
+update cliente set codice_societa = "0001" where id_cliente = 1;
+truncate table movacqudd;
+truncate table movacqu;
+truncate table cashback;
+update movacqudd set data_acquisto = "2023-04-20" where id_acquisto=2;
+truncate movacqudd;
+select * from movacqudd order by id_cliente, data_acquisto desc;
+select * from movacqu order by id_cliente, data_acquisto desc;
+insert into movacqudd (id_cliente, prezzo, data_acquisto) values(1,100,"2023-05-26");
+update movacqudd set prezzo=100 where id_acquisto = 4;
+select * from cashback;
+
+select id_cliente, sum(totale_cashback) as totale, data_accredito from cashback group by id_cliente, data_accredito;
+truncate cashback;
+delete from movacqudd where id_acquisto=10;

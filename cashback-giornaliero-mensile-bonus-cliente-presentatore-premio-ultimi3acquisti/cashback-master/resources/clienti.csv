@@ -1,0 +1,6 @@
+id_cliente,nome,cognome,data_registrazione,percentuale_cashback,cap,cap_mensile,codice_id_cliente_presentatore,codice_societa,lingua,mail,iban
+1,mario,rossi,2023-05-10,10,1000,2500,NULL,0001,ITA,NULL,NULL
+2,bruno,zito,2023-05-10,10,1000,2500,1,NULL,ITA,NULL,NULL
+3,poppy,pluff,2023-05-10,10,1000,2500,6,NULL,ITA,NULL,NULL
+4,Paolo,Verdi,2023-04-20,10,1000,2500,NULL,NULL,ITA,NULL,NULL
+5,Nome,Cognome,2022-05-25,12,1000,2500,NULL,NULL,ENG,NULL,NULL
